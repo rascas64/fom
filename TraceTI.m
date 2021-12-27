@@ -1,4 +1,4 @@
-function TraceTI(t, y, stair, plt)
+function TraceTI(t, y, stair, plt, titre)
     if stair == true
         if ~isempty(t)
             stairs(t, y);
@@ -15,6 +15,6 @@ function TraceTI(t, y, stair, plt)
             plot(y);
         end
     end
-    title("Représentation temporelle du signal");
+    title(titre);
     xlabel("Temps en secondes"); ylabel("Amplitude");
 end
