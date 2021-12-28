@@ -61,3 +61,8 @@ subplot(3, 1, 2)
 TraceTI([], signal_r, true, false, "demod DSSS");
 subplot(3, 1, 3)
 TraceTI([], up, true, false, "demod OOK");
+
+%% Question 7
+ber_DSSS = ber(up, signal)
+ber_OOK = ber(signal_r, signal)
+
