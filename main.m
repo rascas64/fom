@@ -48,11 +48,20 @@ TraceTI([], chips, true, false, "chips");
 subplot(3, 1, 3)
 TraceTI([], sign_DSSS, true, false, "output");
 
+%% Question 5
+signalNoisy = awgn(signOOK, 10);
+figure
+subplot(2, 1, 1)
+TraceTI([], signOOK, false, true, "Signal");
+subplot(2, 1, 2)
+TraceTI([], signalNoisy, false, true, "Signal noisy");
+
+
 %% Question 6
 signal_r = demod_DSSS(sign_DSSS, chips, fact);
 t = 0:1/fs:Ts;
 n=length(t);
-up = demod_OOK(signOOK, n);
+up = demod_OOK(signalNoisy, n);
 
 figure
 subplot(3, 1, 1)
