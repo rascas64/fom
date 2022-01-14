@@ -2,7 +2,7 @@ function [output_sign] = demod_OOK(input_sign, n)
     % Récupération de l'enveloppe du signal
     [up, ~] = envelope(input_sign, 1, "analytic");
     
-    % Parcour de l'enveloppe par pas n pour reconstituer un signal binaire
+    % Parcours de l'enveloppe par pas n pour reconstituer un signal binaire
     output_sign = [];
     A = max(input_sign);
     for i=1:n:length(up)
