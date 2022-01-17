@@ -16,17 +16,13 @@ TraceFFT(t, y);
 
 %% Paramètres
 
-clear all;
-
 Ts = 2.5*10^-2 ; % durée symbolique
 fs = 1/Ts ; % fréquence d'échantillonage
-fc = 10 ; % fréquence de la porteuse à l'émetteur
-fcr = 100 ; % fréquence de la porteuse au récepteur
-phic = pi ; % différence de phase entre l'émetteur et le récepteur
-M = 0 ;
-Amax = 5 ; % Amplitude maximale à l'émetteur
-snr = 5 ; % ration signal / bruit
-sync = 0 ; % desynchronization entre l'émetteur et le récepteur
+fc = 1000 ; % fréquence de la porteuse à l'émetteur
+fcr = 1000 ; % fréquence de la porteuse au récepteur
+phic = 0 ; % différence de phase entre l'émetteur et le récepteur
+Amax = 10 ; % Amplitude maximale à l'émetteur
+snr = 50 ; % ration signal / bruit
 
 %% Question 2 
 
@@ -86,10 +82,11 @@ TraceTI(linspace(0, 1/fs * length(signDSSSNoisy), length(signDSSSNoisy)), signDS
 
 % porteuse de réception
 t = linspace(0, 1/fs * length(signOOKNoisy), length(signOOKNoisy));
-receivingCarrier = Amax * cos(fcr.*t + phic);
+receivingCarrier = Amax * cos(fcr.*t + phic); % création du vecteur de 
+                                              % la porteuse de réception
 
 signOOKRecu = signOOKNoisy.*receivingCarrier;
-temp = lowpass(signOOKRecu, fc + fcr, fs);
+temp = lowpass(signOOKRecu, fc + fcr, fs);    % application du filtre passe bas
 signOOKDemod = demod_OOK(temp,n);
 
 figure;
@@ -114,30 +111,3 @@ TraceTI(0:1/fs:1, signDSSSDemod, true, false, "Signal après réception et démo
 
 ber(signOOKDemod, signal)
 ber(signDSSSDemod, signal)
-
-% calculer le signal reçu ==> multiplication des signaux bruités avec une
-% porteuse de réception
-% t = 0:1/fs:(length(signalDSSSNoisy)-1)/fs;
-% carrier = Amax * cos(fcr * t);
-% signalDSSSRecu = signalDSSSNoisy.*carrier;
-% 
-% puis filtre passe bas pour virer les hautes fréquences
-% temp = lowpass(signalDSSSRecu, fc, fs);
-% 
-% 
-% DSSSDemod = demod_DSSS(signalDSSSRecu, chips, fact);
-% n=length(t);
-% 
-% OOKDemod = demod_OOK(signalOOKNoisy, n);
-% 
-% figure
-% subplot(3, 1, 1)
-% TraceTI([], signal, true, false, "input");
-% subplot(3, 1, 2)
-% TraceTI([], DSSSDemod, true, false, "demod DSSS");
-% subplot(3, 1, 3)
-% TraceTI([], OOKDemod, true, false, "demod OOK");
-
-%% Question 7
-% ber_OOK = ber(OOKDemod, signal)
-% ber_DSSS = ber(DSSSDemod, signal)

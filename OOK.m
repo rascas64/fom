@@ -1,4 +1,4 @@
-function [sign_OOK, carrier, t] = OOK(bin, ts, fs, fc, Amax)
+function [sign_OOK, carrier] = OOK(bin, ts, fs, fc, Amax)
     t = 0:1/fs:ts;
     carrier = Amax * cos(fc * t);
     cp = []; mod = [];
